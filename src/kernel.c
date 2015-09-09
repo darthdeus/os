@@ -23,15 +23,18 @@ void sleep(int ms) {
   while (x--) ;
 }
 
+
+#if defined(__cplusplus)
+extern "C"
+#endif
 void kernel_early() {
+  terminal_initialize();
 }
 
 #if defined(__cplusplus)
-extern "C" 
+extern "C"
 #endif
 void kernel_main() {
-  /* Initialize terminal interface */
-  terminal_initialize();
 
   /* Since there is no support for newlines in terminal_putchar
          * yet, '\n' will produce some VGA specific character instead.
