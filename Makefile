@@ -2,10 +2,12 @@ OPTIMS=-O0
 CFLAGS?=-std=c++17 -g
 CFLAGS:=$(CFLAGS) -Wall -Wextra
 
-default: compile iso
+.PHONY: compile iso run clean install-headers debug
 
-compile:
-	make -C kernel
+# default: compile iso
+
+compile: install-headers
+	./build.sh
 
 iso: compile
 	./iso.sh
@@ -15,8 +17,12 @@ run: iso
 
 clean:
 	make -C kernel clean
+	make -C libc clean
 	rm -f myos.iso
 	rm -rf isodir
 
+install-headers:
+	./headers.sh
+	
 debug:
 	qemu-system-i386 -s -S -cdrom myos.iso

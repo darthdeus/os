@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <kernel/tty.h>
+#include <stdio.h>
 
 /* Check if the compiler thinks we are targeting the wrong operating system. */
 #if defined(__linux__)
@@ -36,6 +37,7 @@ void kernel_main() {
   int i = 1;
 
   while (i++ < 20) {
+    printf("%s\n", "hehe");
     terminal_putchar('0' + (i % 10));
     terminal_putchar('\n');
   }
