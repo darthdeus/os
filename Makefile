@@ -17,6 +17,11 @@ CPPFLAGS:=$(CPPFLAGS) -Iinclude
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lgcc
 
+CRTI_OBJ:=$(ARCHDIR)/crti.o
+CRTBEGIN_OBJ:=$(shell $(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=crtbegin.o)
+CRTEND_OBJ:=$(shell $(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=crtend.o)
+CRTN_OBJ:=$(ARCHDIR)/crtn.o
+
 OBJS:=\
 	$(ARCHDIR)/boot.o \
 	$(ARCHDIR)/tty.o \
@@ -25,8 +30,17 @@ OBJS:=\
 	src/stdlib.o \
 	src/string.o \
 
+ALL_OUR_OBJS:=\
+	$(CRTI_OBJ) \
+	$(OBJS) \
+	$(CRTN_OBJ) \
+
 OBJ_LINK_LIST:=\
-	$(OBJS)
+	$(CRTI_OBJ) \
+	$(CRTBEGIN_OBJ) \
+	$(OBJS) \
+	$(CRTEND_OBJ) \
+	$(CRTN_OBJ) \
 
 all: run
 
@@ -42,7 +56,7 @@ myos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(OBJ_LINK_LIST) $(LDFLAGS) $(LIBS)
 
 clean:
-	rm -f myos.kernel $(OBJS) *.o */*.o */*/*.o
+	rm -f myos.kernel $(OBJS) $(ALL_OUR_OBJS) *.o */*.o */*/*.o
 	rm -f myos.iso
 	rm -rf isodir
 

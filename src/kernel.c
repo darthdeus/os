@@ -23,8 +23,11 @@ void sleep(int ms) {
   while (x--) ;
 }
 
+void kernel_early() {
+}
+
 #if defined(__cplusplus)
-extern "C" /* Use C linkage for kernel_main. */
+extern "C" 
 #endif
 void kernel_main() {
   /* Initialize terminal interface */
@@ -37,8 +40,10 @@ void kernel_main() {
   int i = 1;
 
   while (i++ < 20) {
-    printf("%s\n", "hehe");
-    terminal_putchar('0' + (i % 10));
-    terminal_putchar('\n');
+    /* putchar('c'); */
+    /* puts("hello"); */
+    printf("%s %d\n", "hehe", 123);
+    /* terminal_putchar('0' + (i % 10)); */
+    /* terminal_putchar('\n'); */
   }
 }
