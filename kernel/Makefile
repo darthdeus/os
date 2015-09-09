@@ -53,3 +53,23 @@ install-headers:
 install-kernel: myos.kernel
 	mkdir -p $(DESTDIR)$(BOOTDIR)
 	cp myos.kernel $(DESTDIR)$(BOOTDIR)
+
+compile: install-headers
+	./build.sh
+
+iso: compile
+	./iso.sh
+
+run: iso
+	qemu-system-i386 -cdrom myos.iso
+
+clean:
+	make -C kernel clean
+	rm -f myos.iso
+	rm -rf isodir
+
+install-headers:
+	./headers.sh
+	
+debug:
+	qemu-system-i386 -s -S -cdrom myos.iso
