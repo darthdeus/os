@@ -32,6 +32,7 @@ OBJS:=\
 	src/stdio.o \
 	src/stdlib.o \
 	src/string.o \
+	src/icxxabi.o \
 
 ALL_OUR_OBJS:=\
 	$(CRTI_OBJ) \

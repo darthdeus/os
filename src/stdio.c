@@ -9,14 +9,14 @@ int putchar(int ic) {
   return ic;
 }
 
-int puts(const char* str) { return printf("%s\n", str); }
+int puts(const char *str) { return printf("%s\n", str); }
 
-static void print(const char* data, size_t data_length) {
+static void print(const char *data, size_t data_length) {
   for (size_t i = 0; i < data_length; i++)
-    putchar((int)((const unsigned char*)data)[i]);
+    putchar((int)((const unsigned char *)data)[i]);
 }
 
-int printf(const char* restrict format, ...) {
+int printf(const char *restrict format, ...) {
   va_list parameters;
   va_start(parameters, format);
 
@@ -35,7 +35,7 @@ int printf(const char* restrict format, ...) {
       continue;
     }
 
-    const char* format_begun_at = format;
+    const char *format_begun_at = format;
 
     if (*(++format) == '%') goto print_c;
 
@@ -52,7 +52,7 @@ int printf(const char* restrict format, ...) {
       print(&c, sizeof(c));
     } else if (*format == 's') {
       format++;
-      const char* s = va_arg(parameters, const char*);
+      const char *s = va_arg(parameters, const char *);
       print(s, strlen(s));
     } else {
       goto incomprehensible_conversion;
@@ -63,3 +63,4 @@ int printf(const char* restrict format, ...) {
 
   return written;
 }
+
