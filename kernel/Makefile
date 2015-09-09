@@ -38,7 +38,7 @@ all: myos.kernel
 	$(CC) -c $< -o $@ $(CXXFLAGS)
 
 %.o: %.S
-	$(CC) -c <$ -o $@ $(CFLAGS) $(CPFLAGS)
+	$(CC) -c $< -o $@ $(CFLAGS) $(CPFLAGS)
 
 myos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(OBJ_LINK_LIST) $(LDFLAGS) $(LIBS)
