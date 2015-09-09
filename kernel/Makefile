@@ -4,9 +4,9 @@ HOSTARCH=i386
 ARCHDIR=arch/$(HOSTARCH)
 
 OPTIMS=-O0
-CFLAGS?=$(OPTIMS) -g
+CFLAGS?=$(OPTIMS) -g -Iinclude
 CPFLAGS?=
-CXXFLAGS?=
+CXXFLAGS?=-Iinclude
 LDFLAGS?=
 LIBS?=
 
@@ -22,7 +22,9 @@ AR=$(HOST)-ar
 AS=$(HOST)-as
 
 OBJS:=\
-	kernel.o
+	$(ARCHDIR)/boot.s \
+	$(ARCHDIR)/tty.c \
+	src/kernel.o
 
 OBJ_LINK_LIST:=\
 	$(ARCHDIR)/boot.o \
