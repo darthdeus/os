@@ -22,8 +22,8 @@ AR=$(HOST)-ar
 AS=$(HOST)-as
 
 OBJS:=\
-	$(ARCHDIR)/boot.s \
-	$(ARCHDIR)/tty.c \
+	$(ARCHDIR)/boot.o \
+	$(ARCHDIR)/tty.o \
 	src/kernel.o
 
 OBJ_LINK_LIST:=\
