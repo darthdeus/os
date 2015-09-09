@@ -6,13 +6,16 @@ ARCHDIR=arch/$(HOSTARCH)
 AR=${HOST}-ar
 AS=${HOST}-as
 CC=${HOST}-gcc
+CXX=${HOST}-g++
 
 CFLAGS?=-O2 -g
+CXXFLAGS?=
 CPPFLAGS?=
 LDFLAGS?=
 LIBS?=
 
 CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -Wall -Wextra -std=gnu11
+CXXFLAGS:=$(CXXFLAGS) -ffreestanding -fbuiltin -fno-exceptions -fno-rtti -Wall -Wextra -std=c++17
 CPPFLAGS:=$(CPPFLAGS) -Iinclude
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lgcc
@@ -48,6 +51,9 @@ all: run
 
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) -std=gnu11
+
+%.o: %.cpp
+	$(CXX) -c $< -o $@ $(CXXFLAGS) $(CPPFLAGS) 
 
 %.o: %.S
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
