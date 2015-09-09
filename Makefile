@@ -20,3 +20,6 @@ run:
 
 clean:
 	rm -f myos.iso kernel.o boot.o
+
+debug:
+	qemu-system-i386 -s -S -cdrom myos.iso

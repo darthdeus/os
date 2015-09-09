@@ -162,8 +162,7 @@ void kernel_main() {
          */
   int i = 1;
 
-  terminal_writestring("Muhehe\n");
-  while (i++ < 10) {
+  while (i++ < 20) {
     terminal_putchar('0' + (i % 10));
     terminal_putchar('\n');
   }
