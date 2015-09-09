@@ -28,9 +28,9 @@ OBJS:=\
 OBJ_LINK_LIST:=\
 	$(OBJS)
 
-all: myos.kernel
+all: run
 
-.PHONY: all clean install install-headers install-kernel
+.PHONY: all clean 
 
 %.o: %.c
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS) -std=gnu11
@@ -43,33 +43,14 @@ myos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
 
 clean:
 	rm -f myos.kernel $(OBJS) *.o */*.o */*/*.o
+	rm -f myos.iso
+	rm -rf isodir
 
-install: install-headers install-kernel
-
-install-headers:
-	mkdir -p $(DESTDIR)$(INCLUDEDIR)
-	cp -RTv include $(DESTDIR)$(INCLUDEDIR)
-
-install-kernel: myos.kernel
-	mkdir -p $(DESTDIR)$(BOOTDIR)
-	cp myos.kernel $(DESTDIR)$(BOOTDIR)
-
-compile: install-headers
-	./build.sh
-
-iso: compile
+iso: myos.kernel
 	./iso.sh
 
 run: iso
 	qemu-system-i386 -cdrom myos.iso
 
-clean:
-	make -C kernel clean
-	rm -f myos.iso
-	rm -rf isodir
-
-install-headers:
-	./headers.sh
-	
 debug:
 	qemu-system-i386 -s -S -cdrom myos.iso
