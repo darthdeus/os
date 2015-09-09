@@ -3,6 +3,10 @@ HOSTARCH=i386
 
 ARCHDIR=arch/$(HOSTARCH)
 
+AR=${HOST}-ar
+AS=${HOST}-as
+CC=${HOST}-gcc
+
 CFLAGS?=-O2 -g
 CPPFLAGS?=
 LDFLAGS?=
@@ -16,7 +20,10 @@ LIBS:=$(LIBS) -nostdlib -lgcc
 OBJS:=\
 	$(ARCHDIR)/boot.o \
 	$(ARCHDIR)/tty.o \
-	src/kernel.o
+	src/kernel.o \
+	src/stdio.o \
+	src/stdlib.o \
+	src/string.o \
 
 OBJ_LINK_LIST:=\
 	$(OBJS)
