@@ -18,6 +18,5 @@ clean:
 	rm -f myos.iso
 	rm -rf isodir
 
-
 debug:
 	qemu-system-i386 -s -S -cdrom myos.iso
