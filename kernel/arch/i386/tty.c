@@ -1,14 +1,13 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <kernel/vga.h>
+#include <kernel/tty.h>
 
 size_t terminal_row;
 size_t terminal_column;
-uint8_t terminal_color{};
+uint8_t terminal_color;
 uint16_t* terminal_buffer;
 
-uint8_t terminal_default_color = make_vgaentry(' ', terminal_color);
 
 size_t strlen(const char* str) {
   size_t ret = 0;
@@ -22,6 +21,9 @@ void terminal_initialize() {
   terminal_column = 0;
   terminal_color = make_color(COLOR_LIGHT_GREY, COLOR_BLACK);
   terminal_buffer = VGA_MEMORY;
+
+  // TODO - extract this
+  uint8_t terminal_default_color = make_vgaentry(' ', terminal_color);
 
   for (size_t y = 0; y < VGA_HEIGHT; y++) {
     for (size_t x = 0; x < VGA_WIDTH; x++) {
@@ -41,6 +43,9 @@ void terminal_putentryat(char c, uint8_t color, size_t x, size_t y) {
 }
 
 static void terminal_scroll_up() {
+  // TODO - extract this
+  uint8_t terminal_default_color = make_vgaentry(' ', terminal_color);
+
   for (size_t y = 0; y < VGA_HEIGHT - 1; y++) {
     for (size_t x = 0; x < VGA_WIDTH; x++) {
       const size_t index = y * VGA_WIDTH + x;

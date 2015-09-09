@@ -27,7 +27,6 @@ OBJS:=\
 	src/kernel.o
 
 OBJ_LINK_LIST:=\
-	$(ARCHDIR)/boot.o \
 	$(OBJS)
 
 all: myos.kernel
