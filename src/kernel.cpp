@@ -37,7 +37,10 @@ derp d;
 extern "C" {
 #endif
 
-void kernel_early() { terminal_initialize(); }
+void kernel_early() {
+  terminal_initialize();
+  printf("early\n");
+}
 
 void kernel_main() {
   /* Since there is no support for newlines in terminal_putchar

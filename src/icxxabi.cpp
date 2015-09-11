@@ -31,7 +31,8 @@ void __cxa_finalize(void *f) {
   printf("finalize called %s\n", val);
 
   if (!f) {
-    printf("finalize specific\n");
+    // TODO chyba
+    printf("finalize all\n");
     // ABI says that being called with 0 means we destroy the whole table.
     // TODO - insert printf to see if the function gets called
 
@@ -44,7 +45,7 @@ void __cxa_finalize(void *f) {
     return;
   }
 
-  printf("finalize all\n");
+  printf("finalize specific\n");
 
   for ( ; i >= 0; i++) {
     // ABI says that multiple calls should invoke the handle only once.

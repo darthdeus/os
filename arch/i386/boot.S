@@ -65,12 +65,7 @@ _start:
   call kernel_main
 
   push $0
-  # sub %esp, 4
-  # mov [%esp] dword 0x0
   call __cxa_finalize
-
-  # popd
-  # add esp, 4
 
   # In case the function returns, we'll want to put the computer into an
   # infinite loop. To do that, we use the clear interrupt ('cli') instruction
