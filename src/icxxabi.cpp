@@ -27,7 +27,8 @@ int __cxa_atexit(void (*f)(void *), void *objptr, void *dso) {
 void __cxa_finalize(void *f) {
   uarch_t i = __atexit_func_count;
 
-  char val[] = { i + '0', 0 };
+  char c = i + '0';
+  char val[] = { c, 0 };
   printf("finalize called %s\n", val);
 
   if (!f) {
@@ -47,7 +48,8 @@ void __cxa_finalize(void *f) {
 
   printf("finalize specific\n");
 
-  for ( ; i >= 0; i++) {
+  // TODO - fix typecheck (possible infinite loop)
+  for ( ; i >= 0; i--) {
     // ABI says that multiple calls should invoke the handle only once.
     if (__atexit_funcs[i].destructor_func == f) {
       (*__atexit_funcs[i].destructor_func)(__atexit_funcs[i].obj_ptr);
